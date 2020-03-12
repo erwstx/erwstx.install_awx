@@ -1,0 +1,17 @@
+---
+# vars file for erwstx.install_awx
+git_repo: "https://github.com/ansible/awx.git"
+awx_supported_version: 4.0.0
+rpm_packages:
+- git
+- gettext
+- ansible
+- docker
+- nodejs
+- npm
+- gcc-c++
+- bzip2
+- python-pip
+pip_packages:
+- docker
+- docker-compose

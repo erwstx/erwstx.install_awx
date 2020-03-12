@@ -1,0 +1,33 @@
+---
+- name: Firewalld desactivated (if installed)
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+  register: fw_stop
+
+- name: SELinux desactivated
+  selinux:
+    state: disabled
+  ignore_errors: yes
+  register: sel_stop
+
+# Next to come with Ansible 2.7+ ...
+#- name: Initiate reboot of the host
+#  reboot:
+
+- block:
+  - name: Reboot immediately 
+    shell: "sleep 5 && reboot"
+    async: 1
+    poll: 0
+
+  - name: Wait for the reboot to complete
+    wait_for_connection:
+      connect_timeout: 20
+      sleep: 5
+      delay: 5
+      timeout: 300
+
+  when: fw_stop.changed or sel_stop.changed

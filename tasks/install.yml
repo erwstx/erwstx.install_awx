@@ -1,0 +1,14 @@
+---
+- name: EPEL Repository Configuration
+  yum: 
+    name: epel-release
+
+- name: Ensure necessary packages are installed
+  yum: 
+    name: "{{ rpm_packages }}"
+    state: latest
+
+- name: Ensure that Python librairies for Docker are installed
+  pip:
+    name: "{{ pip_packages }}"
+    state: latest

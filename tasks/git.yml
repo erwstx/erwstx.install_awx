@@ -1,0 +1,14 @@
+---
+- name: Clone of the official GIT repository
+  git:
+    repo: "{{ git_repo }}"
+    dest: "{{ git_local_dir }}"
+    version: "{{ git_repo_version }}"
+
+- name: Get AWX version available in GIT repository
+  shell: "cat {{ git_local_dir }}/VERSION"
+  register: awx_current_version
+
+- debug:
+    msg: "WARNING: AWX Version {{ awx_current_version.stdout }} will be deployed. This version was not supported for this playbook. Supported version is {{ awx_supported_version }}"
+  when: awx_current_version.stdout != awx_supported_version

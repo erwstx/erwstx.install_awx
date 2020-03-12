@@ -1,0 +1,16 @@
+---
+- debug:
+    msg: "AWX wont be deployed because the host is not running on CentOS"
+  when: ansible_distribution != "CentOS"
+
+- include_tasks: "{{ item }}"
+  loop:
+  - fw-selinux.yml
+  - install.yml
+  - service.yml
+  - git.yml
+  - deploy.yml
+  when:
+  - ansible_distribution == "CentOS"
+  - ansible_distribution_major_version == "7"
+  #- ansible_distribution_version == "7.6.1810"
