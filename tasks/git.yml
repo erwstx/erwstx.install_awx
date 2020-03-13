@@ -1,14 +1,14 @@
 ---
 - name: Clone of the official GIT repository
   git:
-    repo: "{{ git_repo }}"
-    dest: "{{ git_local_dir }}"
-    version: "{{ git_repo_version }}"
+    repo: "{{ install_awx_git_repo }}"
+    dest: "{{ install_awx_git_local_dir }}"
+    version: "{{ install_awx_git_repo_version | default(omit) }}"
 
 - name: Get AWX version available in GIT repository
-  shell: "cat {{ git_local_dir }}/VERSION"
-  register: awx_current_version
+  shell: "cat {{ install_awx_git_local_dir }}/VERSION"
+  register: install_awx_current_version
 
 - debug:
-    msg: "WARNING: AWX Version {{ awx_current_version.stdout }} will be deployed. This version was not supported for this playbook. Supported version is {{ awx_supported_version }}"
-  when: awx_current_version.stdout != awx_supported_version
+    msg: "WARNING: AWX Version {{ install_awx_current_version.stdout }} will be deployed. This version was not supported for this playbook. Supported version are {{ install_awx_supported_version | join(", ") }}"
+  when: install_awx_current_version.stdout not in install_awx_supported_versions

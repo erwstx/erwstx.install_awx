@@ -1,10 +1,10 @@
 ---
 - name: Deploy AWX as the simple way as possible :-)
-  shell: "/usr/bin/ansible-playbook -i inventory install.yml > {{ git_local_dir }}/installer/install.log 2>&1 &"
+  shell: "/usr/bin/ansible-playbook -i inventory install.yml > {{ install_awx_git_local_dir }}/installer/install.log 2>&1 &"
   args:
-    chdir: "{{ git_local_dir }}/installer"
+    chdir: "{{ install_awx_git_local_dir }}/installer"
   async: 10
   poll: 0
 
 - debug:
-    msg: "AWX is currently deploying on node {{ ansible_hostname }}. Please see {{ git_local_dir }}/installer/install.log logfile."
+    msg: "AWX is currently deploying on node {{ ansible_hostname }}. Please see {{ install_awx_git_local_dir }}/installer/install.log logfile."
