@@ -23,6 +23,7 @@ install_awx_rpm_packages:
 - gcc-c++
 - bzip2
 - python-pip
+- python-devel
 install_awx_pip_packages:
 - docker
 - docker-compose
