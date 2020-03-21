@@ -10,5 +10,5 @@
   register: install_awx_current_version
 
 - debug:
-    msg: "WARNING: AWX Version {{ install_awx_current_version.stdout }} will be deployed. This version was not supported for this playbook. Supported version are {{ install_awx_supported_version | join(", ") }}"
+    msg: "WARNING: AWX Version {{ install_awx_current_version.stdout }} will be deployed. This version was not supported for this playbook. Supported version are {{ install_awx_supported_versions | join(', ') }}"
   when: install_awx_current_version.stdout not in install_awx_supported_versions
