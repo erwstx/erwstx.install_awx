@@ -3,7 +3,7 @@
   git:
     repo: "{{ install_awx_git_repo }}"
     dest: "{{ install_awx_git_local_dir }}"
-    version: "{{ install_awx_git_repo_version | default(omit) }}"
+    version: "{{ install_awx_git_repo_version }}"
 
 - name: Get AWX version available in GIT repository
   shell: "cat {{ install_awx_git_local_dir }}/VERSION"
